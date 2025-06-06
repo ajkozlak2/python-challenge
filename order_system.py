@@ -110,38 +110,53 @@ def update_order(order, menu_selection, menu_items):
     order (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered (updated as needed).
     """
-    # TODO: Check if the customer typed a number
+    # done: Check if the customer typed a number
     if menu_selection.isdigit():
-        
-        # TODO: Convert the menu selection to an integer
+
+        # dioe: Convert the menu selection to an integer
+        menu_selection = int(menu_selection)
+
+        # dine: Check if the menu selection is in the menu items keys
+        if menu_selection in menu_items.keys():
+            # done: Store the item name as a variable
+            item_name = menu_items[menu_selection]["Item name"]
+
+            # done: Ask the customer for the quantity of the menu item
+            # done: Use the item name variable in the question
+            quantity = input(f"What quantity of {item_name} would you like? \n"
+                                + "(This will default to 1 if number is "
+                                + "not entered)\n")
 
 
-        # TODO: Check if the menu selection is in the menu items keys
+            # done: Check if the quantity is a number, default to 1 if not
+            if quantity.isdigit():
+                quantity = int(quantity)
+            else:
+                quantity = 1
 
-            # TODO: Store the item name as a variable
+            # done: Add a dictionary to the order list 
+            # done: The dictionary should include the item name, price, and quantity
+            # done: Use the following names for the dictionary keys:
+            # done: "Item name", "Price", "Quantity"
+            order.append({
+                "Item name": item_name,
+                "Price": menu_items[menu_selection]["Price"],
+                "Quantity": quantity
+            })
+        else:
+            print("Sorry, that number isn't an option.")
 
+        # done: When the user's input isn't valid, 
+        # done: tell the customer that their input isn't valid
 
-            # TODO: Ask the customer for the quantity of the menu item
-            # TODO: Use the item name variable in the question
+    # done: When the menu selection wasn't valid:
+    # doine: Print the menu selection and 
+    # done: Tell the customer they didn't select a menu option
+    else:
+        print(f"{menu_selection} was not a menu option.")
+    return order
 
-
-            # TODO: Check if the quantity is a number, default to 1 if not
-
-
-            # TODO: Add a dictionary to the order list 
-            # TODO: The dictionary should include the item name, price, and quantity
-            # TODO: Use the following names for the dictionary keys:
-            # TODO: "Item name", "Price", "Quantity"
-
-        # TODO: When the user's input isn't valid, 
-        # TODO: tell the customer that their input isn't valid
-
-    # TODO: When the menu selection wasn't valid:
-    # TODO: Print the menu selection and 
-    # TODO: Tell the customer they didn't select a menu option
-
-
-    # TODO: Return the updated order
+    # done: Return the updated order
 
 
 def print_itemized_receipt(receipt):
@@ -155,14 +170,17 @@ def print_itemized_receipt(receipt):
     # Uncomment the following line if you need to check the structure of the receipt
     #print(receipt)
 
-    # TODO: Loop through the items in the customer's receipt
+    # done: Loop through the items in the customer's receipt
+    for item in receipt:
+        # done Store the dictionary items as variables
+        item_name = item["Item name"]
+        price = item["Price"]
+        quantity = item["Quantity"] 
 
-        # TODO Store the dictionary items as variables
-
-
-        # TODO: Print the receipt line using the print_receipt_line function
-        # TODO: Send the item name, price, and quantity as separate arguments
-
+        # done: Print the receipt line using the print_receipt_line function
+        # done: Send the item name, price, and quantity as separate arguments
+        print_receipt_line(item_name, price, quantity)
+        #print(f"{item_name} | ${price} | {quantity}")
 
 ##################################################
 #  STARTER CODE
